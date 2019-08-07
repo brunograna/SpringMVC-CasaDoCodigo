@@ -14,12 +14,34 @@
 			<th>
 				Titulo do produto
 			</th>
+			<th>
+				Descricao
+			</th>
+			<th>
+				Paginas
+			</th>
+			<th>
+				Preço
+			</th>
 		</tr>
-		<c:forEach items="${produtos }" var="tipoPreco" varStatus="status">
+		<c:forEach items="${produtos }" var="produto" varStatus="status">
 		<tr>
 			<td>
-				${tipoPreco.titulo }
+				${produto.titulo }
 			</td>
+			<td>
+				${produto.descricao }
+			</td>
+			<td>
+				${produto.paginas }
+			</td>		
+			<td>			
+				<c:if test="${produto.precos ne null }">
+					<c:forEach items="${produto.precos }" var="tipoPreco">
+						${tipoPreco.valor }
+					</c:forEach>				
+				</c:if>
+			</td>	
 		</tr>
 		</c:forEach>
 	</table>
