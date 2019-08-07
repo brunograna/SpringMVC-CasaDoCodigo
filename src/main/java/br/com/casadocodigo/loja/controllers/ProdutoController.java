@@ -24,6 +24,15 @@ public class ProdutoController {
 		return modelandview;
 	}
 	
+	@RequestMapping("/produto/all")
+	public ModelAndView listarProdutos() {
+		ModelAndView modelandview = new ModelAndView("produto/listar");
+		
+		modelandview.addObject("produtos", produtoDao.listarTodos());
+		
+		return modelandview;
+	}
+	
 	@RequestMapping("/produto")
 	public String salva(Produto produto) {
 		System.out.println(produto);

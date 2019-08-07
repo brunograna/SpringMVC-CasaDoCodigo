@@ -1,5 +1,7 @@
 package br.com.casadocodigo.loja.daos;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
@@ -18,4 +20,9 @@ public class ProdutoDAO {
 	public void gravar(Produto produto) {
 		manager.persist(produto);
 	}
+	
+	public List<Produto> listarTodos(){
+		return manager.createQuery("from Produto").getResultList();
+	}
+	
 }
