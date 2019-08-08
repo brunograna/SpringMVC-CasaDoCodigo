@@ -9,7 +9,7 @@
 </head>
 <body>
 	<h1>Listagem de produtos</h1>
-	<table>
+	<table border="1" cellpadding="10">
 		<tr>
 			<th>
 				Titulo do produto

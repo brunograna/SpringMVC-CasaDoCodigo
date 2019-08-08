@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<c:url value="/produtos" var="produtoAddUrl" />
 <!DOCTYPE html>
 <html>
 	<head>
@@ -8,7 +10,7 @@
 		<title>Insert title here</title>
 	</head>
 	<body>
-		<form action="/casadocodigo/produto" method="POST">
+		<form action="${produtoAddUrl }" method="POST">
 		
 			<label>Titulo:</label>
 			<input type="text" name="titulo" />

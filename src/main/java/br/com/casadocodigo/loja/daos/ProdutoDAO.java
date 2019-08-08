@@ -21,8 +21,8 @@ public class ProdutoDAO {
 		manager.persist(produto);
 	}
 	
-	public List<Produto> listarTodos(){
-		return manager.createQuery("from Produto").getResultList();
+	public List<Produto> listar(){
+		return manager.createQuery("select p from Produto p", Produto.class).getResultList();
 	}
 	
 }
