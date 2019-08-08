@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<p>${sucesso }</p>
 	<h1>Listagem de produtos</h1>
 	<table border="1" cellpadding="10">
 		<tr>
