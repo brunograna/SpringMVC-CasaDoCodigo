@@ -1,5 +1,7 @@
 package br.com.casadocodigo.loja.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +30,8 @@ public class ProdutoController {
 	public ModelAndView listarProdutos() {
 		ModelAndView modelandview = new ModelAndView("produto/listar");
 		
-		modelandview.addObject("produtos", produtoDao.listarTodos());
+		List<Produto> produtos = produtoDao.listarTodos();		
+		modelandview.addObject("produtos", produtos);
 		
 		return modelandview;
 	}

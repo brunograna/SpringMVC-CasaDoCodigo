@@ -38,7 +38,7 @@
 			<td>			
 				<c:if test="${produto.precos ne null }">
 					<c:forEach items="${produto.precos }" var="tipoPreco">
-						${tipoPreco.valor }
+						${tipoPreco.tipo } | R$ ${tipoPreco.valor } <br/>
 					</c:forEach>				
 				</c:if>
 			</td>	
