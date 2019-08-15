@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.casadocodigo.loja.daos.ProdutoDAO;
+import br.com.casadocodigo.loja.infra.FileSaver;
 import br.com.casadocodigo.loja.models.Produto;
 import br.com.casadocodigo.loja.models.TipoPreco;
 import br.com.casadocodigo.loja.validators.ProdutoValidator;
@@ -27,6 +28,8 @@ public class ProdutoController {
 	
 	@Autowired
 	private ProdutoDAO produtoDao;
+	@Autowired
+	private FileSaver fileSaver;
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -62,6 +65,10 @@ public class ProdutoController {
 			System.out.println(result.getAllErrors().toString());
 			return form(produto);
 		}
+		
+		String path = fileSaver.write("arquivos-sumario", sumario);
+		produto.setSumarioPath(path);
+		
 		System.out.println(produto);
 		produtoDao.gravar(produto);
 		//Added the redirect attribute
