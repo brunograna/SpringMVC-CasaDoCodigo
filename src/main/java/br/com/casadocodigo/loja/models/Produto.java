@@ -1,5 +1,6 @@
 package br.com.casadocodigo.loja.models;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.CollectionTable;
@@ -10,18 +11,27 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.transaction.Transactional;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Produto {
 	
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+	private String sumarioPath;
 	private String titulo;
+	@Lob
 	private String descricao;
 	private int paginas;
+	@DateTimeFormat
+	private Calendar dataLancamento;
+	
+	
 	
 	@ElementCollection(fetch = FetchType.EAGER)
 	private List<Preco> precos;
@@ -50,10 +60,24 @@ public class Produto {
 	}
 	public void setPrecos(List<Preco> precos) {
 		this.precos = precos;
+	}	
+	public Calendar getDataLancamento() {
+		return dataLancamento;
+	}
+	public void setDataLancamento(Calendar dataLancamento) {
+		this.dataLancamento = dataLancamento;
+	}
+	public String getSumarioPath() {
+		return sumarioPath;
+	}
+	public void setSumarioPath(String sumarioPath) {
+		this.sumarioPath = sumarioPath;
 	}
 	@Override
 	public String toString() {
-		return "Produto [titulo=" + titulo + ", descricao=" + descricao + ", paginas=" + paginas + "]";
+		return "Produto [id=" + id + ", titulo=" + titulo + ", descricao=" + descricao + ", paginas=" + paginas
+				+ ", dataLancamento=" + dataLancamento + ", precos=" + precos + "]";
 	}
+	
 		
 }

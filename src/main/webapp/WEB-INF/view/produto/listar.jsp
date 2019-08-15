@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -22,6 +23,9 @@
 					Paginas
 				</th>
 				<th>
+					Data de Lançamento
+				</th>
+				<th>
 					Preço
 				</th>
 			</tr>
@@ -35,6 +39,9 @@
 				</td>
 				<td>
 					${produto.paginas }
+				</td>
+				<td>
+					<fmt:formatDate value="${produto.dataLancamento.time }" pattern="dd/MM/yyyy"/> 
 				</td>		
 				<td>			
 					<c:if test="${produto.precos ne null }">
@@ -43,6 +50,7 @@
 						</c:forEach>				
 					</c:if>
 				</td>	
+				
 			</tr>
 			</c:forEach>
 		</table>

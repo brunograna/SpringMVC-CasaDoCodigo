@@ -1,6 +1,9 @@
+
 package br.com.casadocodigo.loja.configs;
 
 import javax.servlet.Filter;
+import javax.servlet.MultipartConfigElement;
+import javax.servlet.ServletRegistration.Dynamic;
 
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
@@ -16,7 +19,10 @@ public class ServletSpringMVC extends AbstractAnnotationConfigDispatcherServletI
 	protected Class<?>[] getServletConfigClasses() {
 		return new Class[]{ AppWebConfiguration.class, JPAConfiguration.class };
 	}
-
+	
+	/**
+	 * Indica ao Spring a partir de que URL irá mapear
+	 */
 	@Override
 	protected String[] getServletMappings() {
 		return new String[]{"/"};
@@ -29,4 +35,8 @@ public class ServletSpringMVC extends AbstractAnnotationConfigDispatcherServletI
 		return new Filter[] { encodingFilter };
 	}
 
+	@Override
+	protected void customizeRegistration(Dynamic registration) {
+		registration.setMultipartConfig(new MultipartConfigElement(""));
+	}
 }

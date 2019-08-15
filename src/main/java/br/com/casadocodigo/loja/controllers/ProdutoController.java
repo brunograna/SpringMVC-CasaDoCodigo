@@ -12,6 +12,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -27,8 +28,13 @@ public class ProdutoController {
 	@Autowired
 	private ProdutoDAO produtoDao;
 	
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		binder.addValidators(new ProdutoValidator());
+	}
+	
 	@RequestMapping("/form")
-	public ModelAndView form() {		
+	public ModelAndView form(Produto produto) {		
 		ModelAndView modelandview = new ModelAndView("produto/form");
 		
 		modelandview.addObject("tipos", TipoPreco.values());
@@ -47,11 +53,14 @@ public class ProdutoController {
 	}
 	
 	@RequestMapping( method = RequestMethod.POST )
-	public ModelAndView salvar(@Valid Produto produto,BindingResult result, RedirectAttributes redirectAttributes) {
+	public ModelAndView salvar(MultipartFile sumario , @Valid Produto produto, BindingResult result, RedirectAttributes redirectAttributes) {
+
+		System.out.println(sumario.getOriginalFilename());
+		
 		if(result.hasErrors()) {
 			redirectAttributes.addFlashAttribute("errors", result.getAllErrors());
 			System.out.println(result.getAllErrors().toString());
-			return form();
+			return form(produto);
 		}
 		System.out.println(produto);
 		produtoDao.gravar(produto);
@@ -60,8 +69,5 @@ public class ProdutoController {
 		return new ModelAndView("redirect:produtos");
 	}
 	
-	@InitBinder
-	public void initBinder(WebDataBinder binder) {
-		binder.addValidators(new ProdutoValidator());
-	}
+	
 }
