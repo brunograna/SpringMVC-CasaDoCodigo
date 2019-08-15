@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -54,5 +55,8 @@
 			</tr>
 			</c:forEach>
 		</table>
+		<div>
+			<a href="${s:mvcUrl('PC#form').build() }">Adicionar Produto</a>
+		</div>
 	</body>
 </html>
