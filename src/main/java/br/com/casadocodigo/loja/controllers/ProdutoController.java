@@ -2,6 +2,7 @@ package br.com.casadocodigo.loja.controllers;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,6 +32,8 @@ public class ProdutoController {
 	private ProdutoDAO produtoDao;
 	@Autowired
 	private FileSaver fileSaver;
+	@Autowired
+	private HttpServletRequest request;
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -38,7 +42,7 @@ public class ProdutoController {
 	
 	@RequestMapping("/form")
 	public ModelAndView form(Produto produto) {		
-		ModelAndView modelandview = new ModelAndView("produto/form");
+		ModelAndView modelandview = new ModelAndView("produtos/form");
 		
 		modelandview.addObject("tipos", TipoPreco.values());
 		
@@ -47,7 +51,7 @@ public class ProdutoController {
 	
 	@RequestMapping( method = RequestMethod.GET )
 	public ModelAndView listarProdutos() {
-		ModelAndView modelandview = new ModelAndView("produto/listar");
+		ModelAndView modelandview = new ModelAndView("produtos/listar");
 		
 		List<Produto> produtos = produtoDao.listar();		
 		modelandview.addObject("produtos", produtos);
@@ -74,6 +78,15 @@ public class ProdutoController {
 		//Added the redirect attribute
 		redirectAttributes.addFlashAttribute("sucesso", "Produto salvo com sucesso!");
 		return new ModelAndView("redirect:produtos");
+	}
+	
+	@RequestMapping("/detalhe/{id}")
+	public ModelAndView detalhe(@PathVariable("id") Integer id) {
+		System.out.println(request.getServletContext().getRealPath(""));
+		ModelAndView mv = new ModelAndView("produtos/detalhe");
+		Produto produto = produtoDao.find(id);
+		mv.addObject("produto", produto);
+		return mv;
 	}
 	
 	

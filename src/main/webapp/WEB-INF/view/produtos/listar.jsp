@@ -15,6 +15,9 @@
 		<table border="1" cellpadding="10">
 			<tr>
 				<th>
+					Id
+				</th>
+				<th>
 					Titulo do produto
 				</th>
 				<th>
@@ -29,9 +32,15 @@
 				<th>
 					Preço
 				</th>
+				<th>
+					Ações
+				</th>
 			</tr>
 			<c:forEach items="${produtos }" var="produto" varStatus="status">
 			<tr>
+				<td>
+					${produto.id }
+				</td>
 				<td>
 					${produto.titulo }
 				</td>
@@ -51,6 +60,9 @@
 						</c:forEach>				
 					</c:if>
 				</td>	
+				<td>
+					<a href="${s:mvcUrl('PC#detalhe').arg(0, produto.id).build() }">Visualizar</a>
+				</td>
 				
 			</tr>
 			</c:forEach>
